@@ -1,0 +1,15 @@
+<html>
+<head>
+<script>
+function myFunc () {alert ('GOOGLE в ифрейм загружен!')}
+
+onload = function () {document.all._ifr.attachEvent ('onload', myFunc)}
+</script>
+</head>
+<body>
+
+<iframe id="_ifr" src= "http://fb.ru"></iframe>
+
+<input type="button" value="Грузим в ифрейм GOOGLE" onclick="document.all._ifr.src = 'http://google.com';">
+</body>
+</html>
