@@ -1,0 +1,58 @@
+<div id="test">
+  <div id="question" style="margin: 0 auto; padding: 20px;">Question
+  </div>
+  <div id="answers" style="padding: 20px; padding-left: 40px;">
+    <form id="list">&nbsp;
+    </form>
+  </div>
+  <div id="go" style="margin: 0 auto; padding: 20px;">
+    <button onclick="next()">Ответить
+    </button>
+  </div>
+</div>
+<script>
+  var questions = ["Question1", "Question2", "Question3"];
+  var answers = [["правильный", "answ2", "answ3"], ["answ1", "правильный", "answ3", "answ4"], ["answ1", "answ2", "answ3", "правильный", "answ5"]];
+  var pravln = [1,2,4]; //mass of rigth answers
+  var count = 0; //number of question
+  var newLi=""; //new answer element
+  var trueCount=0; //number of rigth answers
+  var testlen=3; //length of questions
+  function next(){
+    //проверяем правильные ответы
+    if (count>0 && count<=testlen){
+      var inp = document.getElementsByName('r');
+      for (var k = 0; k < inp.length; k++) {
+        //если элемент радиокнопка и еслион нажат, то проверяем правильность выбора
+        if (inp[k].type == "radio" && inp[k].checked) {
+          //приводим к числовому значению
+          if (+(inp[k].value)+1==pravln[count-1]){
+            trueCount+=1;
+          }
+        }
+      }
+    }
+    if (count<testlen){
+      document.getElementById("question").innerHTML=questions[count];
+      document.getElementById("list").innerHTML ="";
+      for (var j =0; j < answers[count].length; j++){
+        newLi = document.createElement('p');
+        newLi.innerHTML = '<input name="r" type="radio" value="'+j+'"> '+answers[count][j];
+        list.appendChild(newLi);
+      }
+    }
+    else{
+      var score =  trueCount;
+      g_arVars['tot']=score;
+      CL.Navigation.GoTo({ sTargetType: "slide", sTargetDir: "next" });
+    }
+    count+=1;
+  }
+</script>
+
+<scipt>
+//slide1 начало показа next();
+
+//slide2 начало показа CLJ.total.nRawScore = g_arVars['tot'];
+//document.getElementById("info").innerHTML="Поздравляем, вы прошли тест <br> Правильных ответов: " + trueCount;
+</script>
