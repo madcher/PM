@@ -1,0 +1,65 @@
+<div id="test">
+  <div id="question" style="margin: 0 auto; padding: 20px;">Question
+  </div>
+  <div id="answers" style="padding: 20px; padding-left: 40px;">
+    <form id="list">&nbsp;
+    </form>
+  </div>
+</div>
+<div id="info">&nbsp;
+</div>
+<script>
+  var questions = ["Question1", "Question2", "Question3"];
+  var answers = [["правильный", "answ2", "answ3"], ["answ1", "правильный", "answ3", "answ4"], ["answ1", "answ2", "answ3", "правильный", "answ5"]];
+  var pravln = [1,2,4]; //mass of rigth answers
+  var count = 0; //number of question
+  var newLi=""; //new answer element
+  var trueCount=0; //number of rigth answers
+  var testlen=3; //length of questions
+  next();
+  var fal=[];
+  function next(){
+    //проверяем правильные ответы
+    if (count>0 && count<=testlen){
+      var inp = document.getElementsByName('r');
+      for (var k = 0; k < inp.length; k++) {
+        //если элемент радиокнопка и еслион нажат, то проверяем правильность выбора
+        if (inp[k].type == "radio" && inp[k].checked) {
+          //приводим к числовому значению
+          if (+(inp[k].value)+1==pravln[count-1]){
+            trueCount+=1;
+          }
+          else {
+            //записываем номер неправильно отвеченного вопроса
+            fal.push(count);
+          }
+        }
+      }
+    }
+    if (count<testlen){
+      document.getElementById("question").innerHTML=questions[count];
+      document.getElementById("list").innerHTML ="";
+      for (var j =0; j < answers[count].length; j++){
+        newLi = document.createElement('p');
+        newLi.innerHTML = '<input name="r" type="radio" value="'+j+'"> '+answers[count][j];
+        list.appendChild(newLi);
+      }
+    }
+    else{
+      var score =  trueCount;
+      document.getElementById("question").innerHTML="Поздравляем, вы прошли тест";
+      document.getElementById("answers").innerHTML="Правильных ответов: " + trueCount;
+      if (fal.length>0){
+        document.getElementById("answers").innerHTML+="<br> Неправильные отвеченные вопросы: ";
+        for (var t=0; t<fal.length; t++){
+          document.getElementById("answers").innerHTML+="<br>"+fal[t];
+        }        
+      }
+      document.getElementById("go").innerHTML="    <button onclick='go()' style='width:100px; height: 40px; border: 1px solid black; border-radius: 3px'>Далее</button>" ;
+    }
+    count+=1;
+  }
+  function go(){
+    alert("adada");
+  }
+</script>
