@@ -52,6 +52,7 @@
       if (fal.length>0){
         document.getElementById("answers").innerHTML+="<br> Неправильные отвеченные вопросы: ";
         for (var t=0; t<fal.length; t++){
+          //fal[t] - номер неправильного вопроса, questions[fal[t]-1] - сам вопрос
           document.getElementById("answers").innerHTML+="<br>"+questions[fal[t]-1];
         }        
       }
