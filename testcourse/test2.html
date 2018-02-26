@@ -1,0 +1,67 @@
+<div id="test">
+  <div id="question" style="margin: 0 auto; padding: 10px; font-size:20px">Question
+  </div>
+  <hr />
+  <div id="answers" style="padding: 10px; padding-left: 40px;">
+    <form id="list">&nbsp;
+    </form>
+  </div>
+</div>
+<div id="info">&nbsp;
+</div>
+<script>
+  var questions = ["Какие этапы выделяются в базовой модели процесса ТСМ?"];
+  var answers = [["1) планирование, 2) исполнение, 3) контроль, 4) оценка", "1) разработка концепции, 2) планирование, 3) исполнение, 4) модификация, 5) завершение"]];
+  var pravln = [1]; //mass of rigth answers
+  var count = 0; //number of question
+  var newLi=""; //new answer element
+  var trueCount=0; //number of rigth answers
+  var testlen=1; //length of questions
+  next();
+  var fal=[];
+  function next(){
+    //проверяем правильные ответы
+    if (count>0 && count<=testlen){
+      var inp = document.getElementsByName('r');
+      for (var k = 0; k < inp.length; k++) {
+        //если элемент радиокнопка и еслион нажат, то проверяем правильность выбора
+        if (inp[k].type == "radio" && inp[k].checked) {
+          //приводим к числовому значению
+          if (+(inp[k].value)+1==pravln[count-1]){
+            trueCount+=1;
+          }
+          else {
+            //записываем номер неправильно отвеченного вопроса
+            fal.push(count);
+          }
+        }
+      }
+    }
+    if (count<testlen){
+      document.getElementById("question").innerHTML=questions[count];
+      document.getElementById("list").innerHTML ="";
+      for (var j =0; j < answers[count].length; j++){
+        newLi = document.createElement('p');
+        newLi.innerHTML = '<input name="r" type="radio" value="'+j+'"> '+answers[count][j];
+        list.appendChild(newLi);
+      }
+    }
+    else{
+      var score =  trueCount;
+      document.getElementById("question").innerHTML="Поздравляем, вы прошли тест";
+      document.getElementById("answers").innerHTML="Правильных ответов: " + trueCount;
+      if (fal.length>0){
+        document.getElementById("answers").innerHTML+="<br><br> Неправильные отвеченные вопросы: ";
+        for (var t=0; t<fal.length; t++){
+          //fal[t] - номер неправильного вопроса, questions[fal[t]-1] - сам вопрос
+          document.getElementById("answers").innerHTML+="<br>"+questions[fal[t]-1];
+        }        
+      }
+      document.getElementById("go").innerHTML="    <button onclick='go()' style='width:100px; height: 40px; border: 1px solid black; border-radius: 3px'>Далее</button>" ;
+    }
+    count+=1;
+  }
+  function go(){
+    CL.Navigation.GoTo({ sTargetType: "slide", sTargetDir: "next" });
+  }
+</script>
