@@ -52,7 +52,7 @@
       if (fal.length>0){
         document.getElementById("answers").innerHTML+="<br> Неправильные отвеченные вопросы: ";
         for (var t=0; t<fal.length; t++){
-          document.getElementById("answers").innerHTML+="<br>"+fal[t];
+          document.getElementById("answers").innerHTML+="<br>"+questions[fal[t]-1];
         }        
       }
       document.getElementById("go").innerHTML="    <button onclick='go()' style='width:100px; height: 40px; border: 1px solid black; border-radius: 3px'>Далее</button>" ;
