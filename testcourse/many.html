@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf8'>
+<title>tets</title>
+</head>
+<body>
+
+<div id="test">
+	<div id='question'> Question</div>
+	<div id='answers'>
+		<form id="list">
+		</form>
+	</div>
+	<div id='go'> <button onclick="next()"> Ответить</button></div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+  next();
+});
+
+var questions = ["Question1", "Question2", "Question3"];
+var answers = [["answ1", "answ2", "answ3"], ["answ1", "answ2", "answ3", "answ4"], ["answ1", "answ2", "answ3", "answ4", "answ5"]];
+var pravln = [[1,2],[1,2],[2,3]]; //mass of rigth answers
+var count = 0; //number of question
+var newLi=""; //new answer element
+var trueCount=0; //number of rigth answers
+var testlen=3; //length of questions
+var massChecked = [];
+var countAns=0;
+
+function next(){
+	//проверяем правильные ответы
+	if (count>0 && count<=testlen){
+		var inp = document.getElementsByName('r');
+		massChecked[count-1]=[];
+		for (var k = 0; k < inp.length; k++) {
+			  //если элемент радиокнопка и еслион нажат, то проверяем правильность выбора
+				if (inp[k].type == "checkbox" && inp[k].checked) {
+						 massChecked[count-1].push(+(inp[k].value)+1);
+				}
+		}
+		//if test is end compare answers
+		if(count==testlen){
+			//console.log (massChecked);
+			for (var t=0;t<pravln.length; t++){
+					//compare answers
+					if(JSON.stringify(pravln[t])==JSON.stringify(massChecked[t])){
+						trueCount+=1;
+					}
+				}
+		}
+	}
+
+
+	if (count<testlen){
+		document.getElementById("question").innerHTML=questions[count];
+		document.getElementById("list").innerHTML ="";
+
+
+		for (var j =0; j < answers[count].length; j++){
+			newLi = document.createElement('p');
+			newLi.innerHTML = '<input name="r" type="checkbox" value="'+j+'">'+answers[count][j];
+			list.appendChild(newLi);
+		}
+	}
+	else{
+		document.getElementById("test").innerHTML="Поздравляем, вы прошли тест <br> Правильных ответов: " + trueCount;
+	}
+
+	count+=1;
+}
+</script>
+</body>
+</html>
