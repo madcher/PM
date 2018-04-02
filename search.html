@@ -1,0 +1,56 @@
+<div class="uk-offcanvas-content">
+  <button class="uk-button uk-button-primary tm-button-default uk-icon" style="background: transparent; width: 60px; height:60px " title="Глоссарий" type="button" uk-toggle="target: #offcanvas-flip2" uk-tooltip="">&nbsp;
+  </button>
+  <div id="offcanvas-flip2" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar" style="background-color: #7a7777">
+      <button class="uk-offcanvas-close" type="button" uk-close="">
+      </button>
+      <div>
+        <h3>ГЛОССАРИЙ
+        </h3>
+        <form class="uk-form">
+          <input class="uk-form-small" id="search" placeholder="Поиск" type="search" />
+          <button class="uk-button uk-button-primary uk-button-small" id="searchBtn" onclick="searchTable()" style="background-color: #800000; font-color: white; color:white; " type="button">Поиск
+          </button>
+        </form>
+        <ul class="uk-list uk-list-striped" id="sodd">
+          <li><span style="color:#FFFFFF;"><strong>РАЗРАБОТКА КОНЦЕПЦИИ </strong>- (общего описания или замысла) &ndash; осознание возможности или потребности в новом или улучшенном активе; оценка, исследование, разработка и определение вариантов решений в отношении актива с учетом существующих возможностей и выбор оптимального решения в отношении актива. </span></li>
+          <li><span style="color:#FFFFFF;"><strong>СОЗДАНИЕ</strong> - создание или иной вид реализации решения в отношении актива посредством исполнения проекта или программы. </span></li>
+          <li><span style="color:#FFFFFF;"><strong>ЭКСПЛУАТАЦИЯ</strong> &ndash; развертывание или начало работы, функционирования, производства, эксплуатации или иного использования нового или модифицированного актива. </span></li>
+          <li><span style="color:#FFFFFF;"><strong>МОДИФИКАЦИЯ</strong> &ndash; улучшение, модификация или иное изменение или повторное использование актива посредством выполнения проекта или программы. </span></li>
+          <li><span style="color:#FFFFFF;"><strong>ЗАВЕРШЕНИЕ РАБОТЫ </strong> &ndash; выведение из эксплуатации, закрытие, изъятие из обращения, снос, устранение, утилизация или иной метод выведения актива из портфеля предприятия (часто посредством выполнения проекта или программы).</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var mass=[
+    ["РАЗРАБОТКА КОНЦЕПЦИИ", "- (общего описания или замысла) &ndash; осознание возможности или потребности в новом или улучшенном активе; оценка, исследование, разработка и определение вариантов решений в отношении актива с учетом существующих возможностей и выбор оптимального решения в отношении актива."],
+    ["СОЗДАНИЕ", "- создание или иной вид реализации решения в отношении актива посредством исполнения проекта или программы."],
+    ["ЭКСПЛУАТАЦИЯ", " - развертывание или начало работы, функционирования, производства, эксплуатации или иного использования нового или модифицированного актива."],
+    ["ЗАВЕРШЕНИЕ РАБОТЫ", " - выведение из эксплуатации, закрытие, изъятие из обращения, снос, устранение, утилизация или иной метод выведения актива из портфеля предприятия (часто посредством выполнения проекта или программы)"],
+    ["МОДИФИКАЦИЯ", " - улучшение, модификация или иное изменение или повторное использование актива посредством выполнения проекта или программы."]
+  ];
+  var list2=document.getElementById("sodd");
+  function searchTable(){
+    var str=document.getElementById("search").value;
+    str=str.toLowerCase();
+    var result2=[];
+    for (var i=0; i<mass.length; i++){
+      if (~mass[i][0].indexOf(str)||~mass[i][1].toLowerCase().indexOf(str)){
+        result2.push(mass[i]);
+      }
+    }
+    console.log(result2);
+    fillTable(result2);
+  }
+  function fillTable(result){
+    list2.innerHTML="";
+    for (var j =0; j<result.length; j++){
+      newLi = document.createElement('li');
+      newLi.innerHTML = ' <span style="color:#FFFFFF;"><strong>'+result[j][0]+'</strong>'+result[j][1]+'</span>';
+      list2.appendChild(newLi);
+    }
+  }
+</script>
